@@ -1,17 +1,15 @@
-// let gridSize = prompt(
-// 	"Input the number of squares per side you want to work on."
-// );
 let gridSize;
-//for the grid
 
+//for the grid
 let body = document.querySelector("body");
 let footer = document.querySelector("footer");
 
 let divContainer = document.createElement("div");
 divContainer.id = "container";
 body.insertBefore(divContainer, footer);
-//modules
-// prompt
+
+let divContainerHeight = document.querySelector("#container");
+let divH = divContainerHeight.offsetHeight;
 
 let gridSizeBtn = document.querySelector("#grid-size");
 gridSizeBtn.addEventListener("click", createGridSize);
@@ -32,12 +30,12 @@ function createGridSize() {
 
 function createModules() {
 	gridSize = prompt(
-		"Input the number of squares per side you want to work on."
+		"Input the number of squares per side you want to work on. (5-100)"
 	);
 
 	moduleDiv = document.createElement("div");
 	moduleDiv.className = "modules";
-	let moduleDivHeight = 760 / gridSize;
+	let moduleDivHeight = divH / gridSize;
 	moduleDiv.style.height = `${moduleDivHeight}px`;
 
 	let modulesRow = document.createElement("div");
@@ -74,12 +72,12 @@ pickerBtn.addEventListener("click", mouseEnter);
 let darkenBtn = document.querySelector("#darken");
 darkenBtn.addEventListener("click", mouseEnter);
 
-let insetBtnClass = document.querySelectorAll(".inset-button");
+let insetBtnClass = document.querySelectorAll(".press-button");
 
 // remove inset class
 function removeInsetClass() {
 	insetBtnClass.forEach((item) => {
-		item.classList.remove("inset-btn");
+		item.classList.remove("press-btn");
 	});
 }
 
@@ -87,18 +85,18 @@ function removeInsetClass() {
 function toggleBorderStyle(e) {
 	removeInsetClass();
 	if (e.target.textContent === "Rainbow") {
-		rainbowBtn.classList.add("inset-btn");
+		rainbowBtn.classList.add("press-btn");
 	} else if (e.target.textContent === "Color Picker") {
-		pickerBtn.classList.add("inset-btn");
+		pickerBtn.classList.add("press-btn");
 	} else if (e.target.textContent === "Increment Dark") {
-		darkenBtn.classList.add("inset-btn");
+		darkenBtn.classList.add("press-btn");
 	}
 }
 
 // if else event listener
 function mouseEnter(e) {
+	toggleBorderStyle(e);
 	if (e.target.textContent === "Rainbow") {
-		toggleBorderStyle(e);
 		singleModuleClass.forEach((item) => {
 			item.removeEventListener("mouseenter", hoverPickerModule);
 		});
@@ -109,7 +107,6 @@ function mouseEnter(e) {
 			item.removeEventListener("mouseenter", hoverIncrementDarkModule);
 		});
 	} else if (e.target.textContent === "Color Picker") {
-		toggleBorderStyle(e);
 		singleModuleClass.forEach((item) => {
 			item.removeEventListener("mouseenter", hoverRainbowModule);
 		});
@@ -120,7 +117,6 @@ function mouseEnter(e) {
 			item.removeEventListener("mouseenter", hoverIncrementDarkModule);
 		});
 	} else {
-		toggleBorderStyle(e);
 		singleModuleClass.forEach((item) => {
 			item.removeEventListener("mouseenter", hoverRainbowModule);
 		});
@@ -134,11 +130,13 @@ function mouseEnter(e) {
 }
 
 function hoverPickerModule(e) {
+	rmOpacity(e);
 	let clrPicker = document.querySelector("#picker").value;
 	e.target.style.backgroundColor = `${clrPicker}`;
 }
 
 function hoverRainbowModule(e) {
+	rmOpacity(e);
 	red = Math.floor(Math.random() * 256);
 	green = Math.floor(Math.random() * 256);
 	blue = Math.floor(Math.random() * 256);
@@ -147,20 +145,12 @@ function hoverRainbowModule(e) {
 	console.log(colorStyle);
 }
 
-function convertHextoRGB() {
-	let clrPicker = document.querySelector("#picker").value;
-
-	red = parseInt(clrPicker.slice(1, 3), 16);
-	green = parseInt(clrPicker.slice(3, 5), 16);
-	blue = parseInt(clrPicker.slice(5), 16);
-}
-
 function hoverIncrementDarkModule(e) {
-	convertHextoRGB();
-	let alpha = 0;
-	alpha += 0.1;
-	e.target.style.backgroundColor = `rgba(${red},${green},${blue},${alpha}`;
-	console.log(alpha);
+	let opacity = +e.target.style.opacity;
+	opacity += 0.1;
+	e.target.style.opacity = `${opacity}`;
+	let clrPicker = document.querySelector("#picker").value;
+	e.target.style.backgroundColor = `${clrPicker}`;
 }
 
 // reset button
@@ -171,4 +161,11 @@ function rstModule() {
 	singleModuleClass.forEach((module) => {
 		module.style.removeProperty("background-color");
 	});
+	singleModuleClass.forEach((module) => {
+		module.style.removeProperty("opacity");
+	});
+}
+
+function rmOpacity(e) {
+	e.target.style.opacity = "";
 }

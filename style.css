@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap");
 * {
 	margin: 0;
 	padding: 0;
@@ -5,31 +7,48 @@
 
 body {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	flex-direction: column;
 	align-items: center;
-	gap: 5px;
+	gap: 1.5vh;
+	min-height: 100vh;
+	background-color: #fdf5df;
+	font-family: "Cinzel", serif;
+}
+
+h1 {
+	padding-top: 2vh;
+	font-size: 7vh;
+	color: #5ebec4;
+	font-family: "Dancing Script", cursive;
 }
 
 #buttons {
 	display: flex;
-	gap: 5px;
+	gap: 1vh;
 }
 
 .button,
-.inset-button {
-	height: 40px;
-	width: 80px;
+.press-button {
+	height: 7.5vh;
+	width: 9vw;
+	font-size: 2.5vh;
+	background-color: #5ebec4;
+	font-family: "Cinzel", serif;
+	font-weight: 700;
+	box-sizing: border-box;
+	padding: 0.2vh 0.5vh;
 }
 
-.inset-btn {
+.press-btn {
 	border-style: inset;
+	background-color: #fdf5df;
 }
 
 #container {
-	border: 16px double black;
-	width: 760px;
-	height: 760px;
+	border: 2.7vh double black;
+	width: 500px;
+	height: 500px;
 }
 
 .modules {
@@ -37,7 +56,6 @@ body {
 }
 
 .single-module {
-	border: 1px solid black;
 	flex: 1 1 auto;
 }
 
@@ -45,8 +63,13 @@ footer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: gray;
+	background-color: #5ebec4;
 	width: 100%;
-	font-size: 18px;
-	height: 40px;
+	height: 5vh;
+	font-size: 2.5vh;
+	font-weight: 600;
+}
+
+a {
+	text-decoration: none;
 }
