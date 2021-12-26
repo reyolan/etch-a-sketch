@@ -28,11 +28,26 @@ function createGridSize() {
 	}
 }
 
-function createModules() {
+function setGridSize() {
 	gridSize = prompt(
-		"Input the number of squares per side you want to work on. (5-100)"
+		"Input a whole number for the squares per side you want to work on. (5-100)"
 	);
+	if (gridSize === null) {
+		return;
+	} else {
+		while (gridSize < 5 || gridSize > 100) {
+			gridSize = prompt(
+				"Invalid input! Please input whole number from 5 to 100 for the number of squares per side."
+			);
+			if (gridSize === null) {
+				break;
+			}
+		}
+	}
+}
 
+function createModules() {
+	setGridSize();
 	moduleDiv = document.createElement("div");
 	moduleDiv.className = "modules";
 	let moduleDivHeight = divH / gridSize;
