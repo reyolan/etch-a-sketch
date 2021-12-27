@@ -1,5 +1,3 @@
-let gridSize;
-
 //for the grid
 let body = document.querySelector("body");
 let footer = document.querySelector("footer");
@@ -16,6 +14,10 @@ gridSizeBtn.addEventListener("click", createGridSize);
 
 let singleModuleClass;
 let moduleDivClass;
+
+// reset button
+let rstBtn = document.querySelector("#reset");
+rstBtn.addEventListener("click", rstModule);
 
 function createGridSize() {
 	if (moduleDivClass === undefined) {
@@ -87,10 +89,9 @@ pickerBtn.addEventListener("click", mouseEnter);
 let darkenBtn = document.querySelector("#darken");
 darkenBtn.addEventListener("click", mouseEnter);
 
-let insetBtnClass = document.querySelectorAll(".press-button");
-
 // remove inset class
 function removeInsetClass() {
+	let insetBtnClass = document.querySelectorAll(".press-button");
 	insetBtnClass.forEach((item) => {
 		item.classList.remove("press-btn");
 	});
@@ -167,10 +168,6 @@ function hoverIncrementDarkModule(e) {
 	let clrPicker = document.querySelector("#picker").value;
 	e.target.style.backgroundColor = `${clrPicker}`;
 }
-
-// reset button
-let rstBtn = document.querySelector("#reset");
-rstBtn.addEventListener("click", rstModule);
 
 function rstModule() {
 	singleModuleClass.forEach((module) => {
