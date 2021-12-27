@@ -1,4 +1,3 @@
-//for the grid
 let body = document.querySelector("body");
 let footer = document.querySelector("footer");
 
@@ -6,8 +5,8 @@ let divContainer = document.createElement("div");
 divContainer.id = "container";
 body.insertBefore(divContainer, footer);
 
-let divContainerHeight = document.querySelector("#container");
-let divH = divContainerHeight.offsetHeight;
+let divContainerSelector = document.querySelector("#container");
+let divContainerHeight = divContainerSelector.offsetHeight;
 
 let gridSizeBtn = document.querySelector("#grid-size");
 gridSizeBtn.addEventListener("click", createGridSize);
@@ -15,7 +14,15 @@ gridSizeBtn.addEventListener("click", createGridSize);
 let singleModuleClass;
 let moduleDivClass;
 
-// reset button
+let rainbowBtn = document.querySelector("#rainbow");
+rainbowBtn.addEventListener("click", mouseEnter);
+
+let pickerBtn = document.querySelector("#color-pick");
+pickerBtn.addEventListener("click", mouseEnter);
+
+let darkenBtn = document.querySelector("#darken");
+darkenBtn.addEventListener("click", mouseEnter);
+
 let rstBtn = document.querySelector("#reset");
 rstBtn.addEventListener("click", rstModule);
 
@@ -52,7 +59,7 @@ function createModules() {
 	setGridSize();
 	moduleDiv = document.createElement("div");
 	moduleDiv.className = "modules";
-	let moduleDivHeight = divH / gridSize;
+	let moduleDivHeight = divContainerHeight / gridSize;
 	moduleDiv.style.height = `${moduleDivHeight}px`;
 
 	let modulesRow = document.createElement("div");
@@ -77,19 +84,6 @@ function removeModules() {
 	});
 }
 
-//button for rainbowmodule
-let rainbowBtn = document.querySelector("#rainbow");
-rainbowBtn.addEventListener("click", mouseEnter);
-
-//button for color picker
-let pickerBtn = document.querySelector("#color-pick");
-pickerBtn.addEventListener("click", mouseEnter);
-
-//button for darken
-let darkenBtn = document.querySelector("#darken");
-darkenBtn.addEventListener("click", mouseEnter);
-
-// remove inset class
 function removeInsetClass() {
 	let insetBtnClass = document.querySelectorAll(".press-button");
 	insetBtnClass.forEach((item) => {
@@ -97,7 +91,6 @@ function removeInsetClass() {
 	});
 }
 
-//inset button
 function toggleBorderStyle(e) {
 	removeInsetClass();
 	if (e.target.textContent === "Rainbow") {
@@ -109,7 +102,6 @@ function toggleBorderStyle(e) {
 	}
 }
 
-// if else event listener
 function mouseEnter(e) {
 	toggleBorderStyle(e);
 	if (e.target.textContent === "Rainbow") {
