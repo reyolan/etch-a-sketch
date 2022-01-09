@@ -1,37 +1,38 @@
-let body = document.querySelector("body");
-let footer = document.querySelector("footer");
-
-let divContainer = document.createElement("div");
-divContainer.id = "container";
-body.insertBefore(divContainer, footer);
-
-let divContainerSelector = document.querySelector("#container");
-let divContainerHeight = divContainerSelector.offsetHeight;
-
-let gridSizeBtn = document.querySelector("#grid-size");
-gridSizeBtn.addEventListener("click", createGridSize);
-
 let singleModuleClass;
 let moduleDivClass;
 
-let rainbowBtn = document.querySelector("#rainbow");
-rainbowBtn.addEventListener("click", mouseEnter);
+function initializeDom() {
+	let body = document.querySelector("body");
+	let footer = document.querySelector("footer");
 
-let pickerBtn = document.querySelector("#color-pick");
-pickerBtn.addEventListener("click", mouseEnter);
+	let divContainer = document.createElement("div");
+	divContainer.id = "container";
+	body.insertBefore(divContainer, footer);
+}
 
-let darkenBtn = document.querySelector("#darken");
-darkenBtn.addEventListener("click", mouseEnter);
+function initializeEvents() {
+	let gridSizeBtn = document.querySelector("#grid-size");
+	gridSizeBtn.addEventListener("click", createGridSize);
 
-let rstBtn = document.querySelector("#reset");
-rstBtn.addEventListener("click", rstModule);
+	let rainbowBtn = document.querySelector("#rainbow");
+	rainbowBtn.addEventListener("click", mouseEnter);
+
+	let pickerBtn = document.querySelector("#color-pick");
+	pickerBtn.addEventListener("click", mouseEnter);
+
+	let darkenBtn = document.querySelector("#darken");
+	darkenBtn.addEventListener("click", mouseEnter);
+
+	let rstBtn = document.querySelector("#reset");
+	rstBtn.addEventListener("click", rstModule);
+}
 
 function createGridSize() {
 	if (moduleDivClass === undefined) {
-		removeInsetClass();
+		removeInsetInButton();
 		createModules();
 	} else {
-		removeInsetClass();
+		removeInsetInButton();
 		removeModules();
 		createModules();
 	}
@@ -59,6 +60,9 @@ function createModules() {
 	setGridSize();
 	moduleDiv = document.createElement("div");
 	moduleDiv.className = "modules";
+
+	let divContainerSelector = document.querySelector("#container");
+	let divContainerHeight = divContainerSelector.offsetHeight;
 	let moduleDivHeight = divContainerHeight / gridSize;
 	moduleDiv.style.height = `${moduleDivHeight}px`;
 
@@ -72,7 +76,7 @@ function createModules() {
 
 	for (let counter = 0; counter < gridSize; counter++) {
 		clnModuleDiv = moduleDiv.cloneNode(true);
-		divContainer.appendChild(clnModuleDiv);
+		divContainerSelector.appendChild(clnModuleDiv);
 	}
 	singleModuleClass = document.querySelectorAll(".single-module");
 	moduleDivClass = document.querySelectorAll(".modules");
@@ -84,15 +88,19 @@ function removeModules() {
 	});
 }
 
-function removeInsetClass() {
+function removeInsetInButton() {
 	let insetBtnClass = document.querySelectorAll(".press-button");
 	insetBtnClass.forEach((item) => {
 		item.classList.remove("press-btn");
 	});
 }
 
-function toggleBorderStyle(e) {
-	removeInsetClass();
+function addInsetToButton(e) {
+	removeInsetInButton();
+	let rainbowBtn = document.querySelector("#rainbow");
+	let pickerBtn = document.querySelector("#color-pick");
+	let darkenBtn = document.querySelector("#darken");
+
 	if (e.target.textContent === "Rainbow") {
 		rainbowBtn.classList.add("press-btn");
 	} else if (e.target.textContent === "Color Picker") {
@@ -103,7 +111,7 @@ function toggleBorderStyle(e) {
 }
 
 function mouseEnter(e) {
-	toggleBorderStyle(e);
+	addInsetToButton(e);
 	if (e.target.textContent === "Rainbow") {
 		singleModuleClass.forEach((item) => {
 			item.removeEventListener("mouseenter", hoverPickerModule);
@@ -173,3 +181,6 @@ function rstModule() {
 function rmOpacity(e) {
 	e.target.style.opacity = "";
 }
+
+initializeDom();
+initializeEvents();
