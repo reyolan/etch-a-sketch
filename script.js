@@ -101,18 +101,19 @@ function addInsetToButton(e) {
 	let pickerBtn = document.querySelector("#color-pick");
 	let darkenBtn = document.querySelector("#darken");
 
-	if (e.target.textContent === "Rainbow") {
+	if (e.target.innerText === "Rainbow") {
 		rainbowBtn.classList.add("press-btn");
-	} else if (e.target.textContent === "Color Picker") {
+	} else if (e.target.innerText === "Color Picker") {
 		pickerBtn.classList.add("press-btn");
-	} else if (e.target.textContent === "Increment Dark") {
+	} else if (e.target.innerText === "Increment Dark") {
 		darkenBtn.classList.add("press-btn");
 	}
 }
 
 function mouseEnter(e) {
+	console.log(e);
 	addInsetToButton(e);
-	if (e.target.textContent === "Rainbow") {
+	if (e.target.innerText === "Rainbow") {
 		singleModuleClass.forEach((item) => {
 			item.removeEventListener("mouseenter", hoverPickerModule);
 		});
@@ -122,7 +123,7 @@ function mouseEnter(e) {
 		singleModuleClass.forEach((item) => {
 			item.removeEventListener("mouseenter", hoverIncrementDarkModule);
 		});
-	} else if (e.target.textContent === "Color Picker") {
+	} else if (e.target.innerText === "Color Picker") {
 		singleModuleClass.forEach((item) => {
 			item.removeEventListener("mouseenter", hoverRainbowModule);
 		});
@@ -159,6 +160,7 @@ function hoverRainbowModule(e) {
 	e.target.style.backgroundColor = `rgb(${red},${green},${blue})`;
 	colorStyle = e.target.style.backgroundColor;
 	console.log(colorStyle);
+	console.log(e);
 }
 
 function hoverIncrementDarkModule(e) {
