@@ -2,28 +2,28 @@ let singleModuleClass;
 let moduleDivClass;
 
 function initializeDom() {
-	let body = document.querySelector("body");
-	let footer = document.querySelector("footer");
+	const body = document.querySelector("body");
+	const footer = document.querySelector("footer");
 
-	let divContainer = document.createElement("div");
+	const divContainer = document.createElement("div");
 	divContainer.id = "container";
 	body.insertBefore(divContainer, footer);
 }
 
 function initializeEvents() {
-	let gridSizeBtn = document.querySelector("#grid-size");
+	const gridSizeBtn = document.querySelector("#grid-size");
 	gridSizeBtn.addEventListener("click", createGridSize);
 
-	let rainbowBtn = document.querySelector("#rainbow");
+	const rainbowBtn = document.querySelector("#rainbow");
 	rainbowBtn.addEventListener("click", mouseEnter);
 
-	let pickerBtn = document.querySelector("#color-pick");
+	const pickerBtn = document.querySelector("#color-pick");
 	pickerBtn.addEventListener("click", mouseEnter);
 
-	let darkenBtn = document.querySelector("#darken");
+	const darkenBtn = document.querySelector("#darken");
 	darkenBtn.addEventListener("click", mouseEnter);
 
-	let rstBtn = document.querySelector("#reset");
+	const rstBtn = document.querySelector("#reset");
 	rstBtn.addEventListener("click", rstModule);
 }
 
@@ -58,15 +58,17 @@ function setGridSize() {
 
 function createModules() {
 	setGridSize();
-	moduleDiv = document.createElement("div");
+	const moduleDiv = document.createElement("div");
 	moduleDiv.className = "modules";
 
-	let divContainerSelector = document.querySelector("#container");
-	let divContainerHeight = divContainerSelector.offsetHeight;
-	let moduleDivHeight = divContainerHeight / gridSize;
+	const divContainerSelector = document.querySelector("#container");
+	const divContainerHeight = divContainerSelector.clientHeight;
+	const moduleDivHeight = divContainerHeight / gridSize;
 	moduleDiv.style.height = `${moduleDivHeight}px`;
+	console.log(divContainerHeight);
+	console.log(moduleDivHeight);
 
-	let modulesRow = document.createElement("div");
+	const modulesRow = document.createElement("div");
 	modulesRow.className = "single-module";
 
 	for (let counter = 0; counter < gridSize; counter++) {
@@ -89,7 +91,7 @@ function removeModules() {
 }
 
 function removeInsetInButton() {
-	let insetBtnClass = document.querySelectorAll(".press-button");
+	const insetBtnClass = document.querySelectorAll(".press-button");
 	insetBtnClass.forEach((item) => {
 		item.classList.remove("press-btn");
 	});
@@ -97,9 +99,9 @@ function removeInsetInButton() {
 
 function addInsetToButton(e) {
 	removeInsetInButton();
-	let rainbowBtn = document.querySelector("#rainbow");
-	let pickerBtn = document.querySelector("#color-pick");
-	let darkenBtn = document.querySelector("#darken");
+	const rainbowBtn = document.querySelector("#rainbow");
+	const pickerBtn = document.querySelector("#color-pick");
+	const darkenBtn = document.querySelector("#darken");
 
 	if (e.target.innerText === "Rainbow") {
 		rainbowBtn.classList.add("press-btn");
@@ -111,7 +113,6 @@ function addInsetToButton(e) {
 }
 
 function mouseEnter(e) {
-	console.log(e);
 	addInsetToButton(e);
 	if (e.target.innerText === "Rainbow") {
 		singleModuleClass.forEach((item) => {
@@ -148,7 +149,7 @@ function mouseEnter(e) {
 
 function hoverPickerModule(e) {
 	rmOpacity(e);
-	let clrPicker = document.querySelector("#picker").value;
+	const clrPicker = document.querySelector("#picker").value;
 	e.target.style.backgroundColor = `${clrPicker}`;
 }
 
@@ -159,15 +160,13 @@ function hoverRainbowModule(e) {
 	blue = Math.floor(Math.random() * 256);
 	e.target.style.backgroundColor = `rgb(${red},${green},${blue})`;
 	colorStyle = e.target.style.backgroundColor;
-	console.log(colorStyle);
-	console.log(e);
 }
 
 function hoverIncrementDarkModule(e) {
 	let opacity = +e.target.style.opacity;
 	opacity += 0.1;
 	e.target.style.opacity = `${opacity}`;
-	let clrPicker = document.querySelector("#picker").value;
+	const clrPicker = document.querySelector("#picker").value;
 	e.target.style.backgroundColor = `${clrPicker}`;
 }
 
